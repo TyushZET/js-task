@@ -15,19 +15,19 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" >
+                        <input type="text" min="2" class="form-control" name="name" id="name" required>
                     </div>
                     <div class="form-group">
                         <label for="surname">Surname</label>
-                        <input type="text" class="form-control" name="surname" id="surname" >
+                        <input type="text" class="form-control" name="surname" id="surname" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" >
+                        <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="number">Phone</label>
-                        <input type="number" min="1" class="form-control" name="phone" id="phone" >
+                        <input type="number" min="1" class="form-control" name="phone" id="phone" required>
                     </div>
                 </div>
                 <div class="modal-footer">

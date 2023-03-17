@@ -64,13 +64,16 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        User::where('id', $request->id)->update([
+        User::where('id', $request->up_id)->update([
             'name' => $request->up_name,
             'surname' => $request->up_surname,
             'email' => $request->up_email,
             'phone' => $request->up_phone,
         ]);
-        return redirect('/api/users');
+        return response()->json([
+            'status' => 'success'
+        ]);
+
     }
 
 }

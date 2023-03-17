@@ -1,79 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <form  action = " " method="POST" id="updateUser">
+        @csrf
+        <input type="hidden" id="up_id" name="up_id" value="{{$users['id']}}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Update User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="errMsgContainer">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-<form action="{{route('user_update',$users['id'])}}" method="post" id="updateUser">
-    <div class="form-control">
-        <input type="hidden" id="id" name="id" value="{{$users['id']}}">
-    <div class="mb-3">
-        <label  class="form-label">Name</label>
-        <input type="text" class="form-control" id="up_name" name="up_name" value="{{$users['name']}}">
-    </div>
-    <div class="mb-3">
-        <label  class="form-label">Surname</label>
-        <input type="text" class="form-control" id="up_surname" name="up_surname" value="{{$users['surname']}}">
-    </div>
-    <div class="mb-3">
-        <label  class="form-label">Email</label>
-        <input type="email" class="form-control" id="up_email" name="up_email" value="{{$users['email']}}">
-    </div>
-    <div class="mb-3">
-        <label  class="form-label">Phone</label>
-        <input type="text" class="form-control" id="up_phone" name="up_phone" value="{{$users['phone']}}">
-    </div>
-    <button type="submit" class="btn btn-primary">Update User</button>
-    </div>
-</form>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-        crossorigin="anonymous"></script>
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    })
-</script>
-
-<script>
-    $(document).ready(function () {
-        $(document).on("click", ".updateUser", function (e) {
-            let up_name = $('#up_name').val()
-            let up_surname = $('#up_surname').val()
-            let up_email = $('#up_email').val()
-            let up_phone = $('#up_phone').val()
-
-
-            $.ajax({
-                url: {{route('user_update',$users['id'])}},
-                method: 'post',
-                data: {up_name: up_name, up_surname: up_surname, up_email: up_email, up_phone: up_phone},
-                success: function () {
-                        console.log("Updated")
-                }, error: function (err) {
-                    let error = err.responseJson;
-                    $.each(error.erros, function (index, value) {
-                        $('.errMsgContainer').append('<span class="text-danger">' + value + '</span>' + '<br>')
-                    })
-                }
-
-            })
-        })
-    });
-</script>
-
-</body>
-</html>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" min="2" class="form-control" name="up_name" id="up_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" class="form-control" name="up_surname" id="up_surname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="up_email" id="up_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Phone</label>
+                        <input type="number" min="1" class="form-control" name="up_phone" id="up_phone" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary update_user_form">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

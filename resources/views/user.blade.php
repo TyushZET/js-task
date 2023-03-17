@@ -34,7 +34,16 @@
                 <td>{{$users['phone']}}</td>
 
                 <td>
-                    <a href="{{route('user_edit',$users['id'])}}">
+                    <a href=""
+                       class="btn btn-info update_user"
+                       data-bs-toggle="modal"
+                       data-bs-target="#updateModal"
+                       data-id="{{$users['id']}}"
+                       data-name="{{$users['name']}}"
+                       data-surname="{{$users['surname']}}"
+                       data-email="{{$users['email']}}"
+                       data-phone="{{$users['phone']}}"
+                    >
                         <button class="btn btn-info">Edit</button>
                     </a>
                 </td>
@@ -54,6 +63,7 @@
 </div>
 
 @include('user_modal')
+@include('update_user')
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
@@ -95,6 +105,51 @@
 
             })
         })
+        //EDIT USER
+        $(document).on("click", ".update_user",function(){
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let surname = $(this).data('surname');
+            let email = $(this).data('email');
+            let phone = $(this).data('phone');
+
+            $('#up_id').val(id);
+            $('#up_name').val(name);
+            $('#up_surname').val(surname);
+            $('#up_email').val(email);
+            $('#up_phone').val(phone);
+        })
+
+        // UPDATE USER
+        $(document).on("click", ".update_user_form", function (e) {
+            e.preventDefault();
+            let up_id = $('#up_id').val()
+            let up_name = $('#up_name').val()
+            let up_surname = $('#up_surname').val()
+            let up_email = $('#up_email').val()
+            let up_phone = $('#up_phone').val()
+
+            $.ajax({
+                url: "/api/users/update/{id}",
+                method: 'post',
+                data: {up_id: up_id, up_name: up_name, up_surname: up_surname, up_email: up_email, up_phone: up_phone},
+                success: function (res) {
+                    if (res.status == 'success') {
+                        $('#updateModal').modal('hide');
+                        $('#updateUser')[0].reset();
+                        $('.table').load(location.href + ' .table');
+                    }
+                }, error: function (err) {
+                    let error = err.responseJson;
+                    $.each(error.errors, function (index, value) {
+                        $('.errMsgContainer').append('<span class="text-danger">' + value + '</span>' + '<br>')
+                    })
+                }
+
+            })
+        })
+
+
     });
 
     // Delete user
