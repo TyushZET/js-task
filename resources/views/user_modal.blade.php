@@ -1,11 +1,12 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form action="{{route('user_add')}}" method="post" id="addUser">
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <form  action = " " method="POST" id="addUser">
         @csrf
+        <input type="hidden" id="id" name="id" value="{{$users['id']}}">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -14,19 +15,19 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" required>
+                        <input type="text" class="form-control" name="name" id="name" >
                     </div>
                     <div class="form-group">
                         <label for="surname">Surname</label>
-                        <input type="text" class="form-control" name="surname" id="surname" required>
+                        <input type="text" class="form-control" name="surname" id="surname" >
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" required>
+                        <input type="email" class="form-control" name="email" id="email" >
                     </div>
                     <div class="form-group">
                         <label for="number">Phone</label>
-                        <input type="number" min="1" class="form-control" name="phone" id="phone" required>
+                        <input type="number" min="1" class="form-control" name="phone" id="phone" >
                     </div>
                 </div>
                 <div class="modal-footer">

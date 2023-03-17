@@ -14,16 +14,17 @@ class UserController extends Controller
     {
         $user = User::all();
 
-        return view('user')->with('user',json_decode($user, true));
+        return view('user')->with('user', json_decode($user, true));
 
     }
 
     public function store(UserRequest $request)
     {
-        $user = User::create($request->validated());
+        User::create($request->validated());
 
-        return redirect()->back();
-
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
     public function show($id)
@@ -45,25 +46,29 @@ class UserController extends Controller
 
     }
 
-    public function destroy($id){
-        $user = User::find($id);
-        $user->delete();
-        return redirect()->back();
+    public function destroy(Request $request)
+    {
+            User::find($request->id)->delete();
+            return response()->json([
+                'status' => 'success'
+            ]);
+
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $users = User::find($id);
 
-        return view('update_user')->with('users',json_decode($users, true));
+        return view('update_user')->with('users', json_decode($users, true));
     }
 
     public function update(UpdateUserRequest $request)
     {
-        User::where('id',$request->id)->update([
-            'name'=>$request->up_name,
-            'surname'=>$request->up_surname,
-            'email'=>$request->up_email,
-            'phone'=>$request->up_phone,
+        User::where('id', $request->id)->update([
+            'name' => $request->up_name,
+            'surname' => $request->up_surname,
+            'email' => $request->up_email,
+            'phone' => $request->up_phone,
         ]);
         return redirect('/api/users');
     }

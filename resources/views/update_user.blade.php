@@ -61,8 +61,8 @@
                 url: {{route('user_update',$users['id'])}},
                 method: 'post',
                 data: {up_name: up_name, up_surname: up_surname, up_email: up_email, up_phone: up_phone},
-                success: function (res) {
-
+                success: function () {
+                        console.log("Updated")
                 }, error: function (err) {
                     let error = err.responseJson;
                     $.each(error.erros, function (index, value) {

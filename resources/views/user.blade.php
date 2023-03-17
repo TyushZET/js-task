@@ -13,7 +13,7 @@
 <body>
 <div class="container mt-3">
     <h2>Users</h2>
-    <a class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add User</a>
+    <a class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#addModal">Add User</a>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -40,7 +40,10 @@
                 </td>
 
                 <td>
-                    <a href="{{route('user_delete',$users['id'])}}">
+                    <a href=""
+                       class="btn btn-danger delete_user"
+                       data-id="{{$users['id']}}"
+                    >
                         <button class="btn btn-danger">Delete</button>
                     </a>
                 </td>
@@ -67,27 +70,51 @@
 <script>
     $(document).ready(function () {
         $(document).on("click", ".add_user", function (e) {
+            e.preventDefault();
             let name = $('#name').val()
             let surname = $('#surname').val()
             let email = $('#email').val()
             let phone = $('#phone').val()
 
             $.ajax({
-                url: {{route('user_add')}},
+                url: "/api/users/add",
                 method: 'post',
                 data: {name: name, surname: surname, email: email, phone: phone},
                 success: function (res) {
-
+                    if (res.status == 'success') {
+                        $('#addModal').modal('hide');
+                        $('#addUser')[0].reset();
+                        $('.table').load(location.href + ' .table');
+                    }
                 }, error: function (err) {
                     let error = err.responseJson;
-                    $.each(error.erros, function (index, value) {
+                    $.each(error.errors, function (index, value) {
                         $('.errMsgContainer').append('<span class="text-danger">' + value + '</span>' + '<br>')
                     })
                 }
 
             })
         })
-        // update
+    });
+
+    // Delete user
+    $(document).ready(function () {
+        $(document).on("click", ".delete_user", function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            if (confirm('Are you sure to delete user ??')) {
+                $.ajax({
+                    url: '/api/users/delete/{id}',
+                    method: 'post',
+                    data: {id: id},
+                    success: function (res) {
+                        if (res.status == 'success') {
+                            $('.table').load(location.href + ' .table');
+                        }
+                    }
+                })
+            }
+        })
     });
 </script>
 
