@@ -105,6 +105,7 @@
 
             })
         })
+
         //EDIT USER
         $(document).on("click", ".update_user",function(){
             let id = $(this).data('id');
@@ -157,7 +158,7 @@
         $(document).on("click", ".delete_user", function (e) {
             e.preventDefault();
             let id = $(this).data('id');
-            if (confirm('Are you sure to delete user ??')) {
+            if (confirm('Are you sure to delete user ?!')) {
                 $.ajax({
                     url: '/api/users/delete/{id}',
                     method: 'post',

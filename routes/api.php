@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\person\PersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/users',[UserController::class, 'index']);
 Route::post('/users/add',[UserController::class, 'store'])->name('users_add');
 Route::post('/users/delete/{id}',[UserController::class, 'destroy'])->name('user_delete');
-Route::get('/users/edit/{id}',[UserController::class, 'edit'])->name('user_edit');
 Route::post('/users/update/{id}',[UserController::class, 'update'])->name('user_update');
 Route::get('/users/show/{id}',[UserController::class, 'show']);
+
+// VUE ROUTES
+Route::post('/peoples',[PersonController::class,'store']);
+Route::get('/peoples',[PersonController::class,'index']);
+Route::patch('/peoples/{person}',[PersonController::class,'update']);
+Route::delete('/peoples/{person}',[PersonController::class,'destroy']);
+

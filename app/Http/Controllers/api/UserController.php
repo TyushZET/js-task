@@ -41,6 +41,7 @@ class UserController extends Controller
                 'status' => 404,
                 'posts' => 'No records found'
             ];
+            return response()->json($data);
 
         }
 
